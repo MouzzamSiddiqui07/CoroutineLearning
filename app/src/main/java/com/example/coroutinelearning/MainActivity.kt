@@ -41,6 +41,10 @@ class MainActivity : AppCompatActivity() {
         val result1 = getResult1fromApi()
 
 // when we want to change the context
+        setTextOnMainThread(result1)
+    }
+
+    private suspend fun setTextOnMainThread(result1: String) {
         withContext(Dispatchers.Main) {
             setTextToTextView(result1)
         }
