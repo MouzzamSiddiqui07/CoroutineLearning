@@ -14,6 +14,7 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
 
     private val RESULT1: String = "Result1"
+    private val RESULT2: String = "Result2"
 
     // create the instance member of that text view and button
     private lateinit var resultTextView: TextView
@@ -39,9 +40,10 @@ class MainActivity : AppCompatActivity() {
 // fake api request
     private suspend fun fakeApiRequest() {
         val result1 = getResult1fromApi()
-
 // when we want to change the context
         setTextOnMainThread(result1)
+        val result2 = getResult2FromApi()
+        setTextOnMainThread(result2)
     }
 
     private suspend fun setTextOnMainThread(result1: String) {
@@ -66,5 +68,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun logThread(methodName: String) {
         Log.d("kkk", "method name :$methodName")
+    }
+
+    private suspend fun getResult2FromApi(): String {
+        val methodName = "getResult2FromApi"
+        logThread(methodName)
+        delay(1000)
+        return RESULT2
     }
 }
