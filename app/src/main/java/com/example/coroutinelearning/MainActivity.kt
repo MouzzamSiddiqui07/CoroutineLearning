@@ -7,11 +7,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.*
 
+
 class MainActivity : AppCompatActivity() {
 
     private val RESULT1: String = "Result1"
     private val RESULT2: String = "Result2"
-    private val _JOBTIMEOUT = 1900L
+    private val JOB_TIMEOUT = 1900L
 
     // create the instance member of that text view and button
     private lateinit var resultTextView: TextView
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     private suspend fun fakeApiRequest() {
 
         withContext(Dispatchers.IO) {
-            val job = withTimeoutOrNull(_JOBTIMEOUT) {
+            val job = withTimeoutOrNull(JOB_TIMEOUT) {
                 val result1 = getResult1fromApi() // wait to complete
                 setTextOnMainThread(result1)
 
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 setTextOnMainThread(result2)
             }
             if (job == null) {
-                val cancelMessage = "This job took more time that $_JOBTIMEOUT ms"
+                val cancelMessage = "This job took more time that $JOB_TIMEOUT ms"
                 setTextOnMainThread(cancelMessage)
             }
         }
